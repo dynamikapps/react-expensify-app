@@ -10,9 +10,8 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
         ? startDate.isSameOrBefore(createdAtMoment, "day")
         : true;
       const endDateMatch = endDate
-        ? endDate.isSameOrBefore(createdAtMoment, "day")
+        ? endDate.isSameOrAfter(createdAtMoment, "day")
         : true;
-
       const textMatch = expense.description
         .toLowerCase()
         .includes(text.toLowerCase());
@@ -25,7 +24,7 @@ export default (expenses, { text, sortBy, startDate, endDate }) => {
       } else if (sortBy === "amount") {
         return a.amount < b.amount ? 1 : -1;
       } else {
-        return a.createdAt < b.createdAt ? 1 : -1;
+        return a.amount < b.amount ? 1 : -1;
       }
     });
 };
